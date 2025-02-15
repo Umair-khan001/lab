@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Welcome, Umair Aziz</title>
+  <style>
+    /* Reset & Base Styles */
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      height: 100%;
+      font-family: 'Arial', sans-serif;
+    }
+    /* Background Image Container */
+    .bg-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('templates/your-background-image.jpg') no-repeat center center;
+      background-size: cover;
+      z-index: 0;
+    }
+    /* Gradient Overlay matching the theme colors */
+    .gradient-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* The gradient uses your colors (#FFEDFA, #E195AB, #DE3163) with transparency */
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 237, 250, 0.6),
+        rgba(225, 149, 171, 0.6),
+        rgba(222, 49, 99, 0.6)
+      );
+      z-index: 0;
+    }
+    /* Canvas for animated effects */
+    #canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      pointer-events: none; /* Allow clicks to pass through */
+    }
+    /* Main content overlay */
+    .content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 2rem;
+      color: #fff;
+    }
+    /* Intro Section */
+    .intro {
+      margin-bottom: 2rem;
+    }
+    h1 {
+      font-size: 3em;
+      margin: 0.5em;
+      background: linear-gradient(to right, #FFEDFA, #E195AB, #DE3163);
+      -webkit-background-clip: text;
+      background-clip:none;
+      -webkit-text-fill-color: transparent;
+      animation: fadeIn 2s ease-in-out;
+    }
+    h2 {
+      font-size: 1.5em;
+      margin: 0.5em;
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      animation: fadeIn 2s ease-in-out;
+    }
+    /* Cards Container */
+    .cards-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    /* Individual Card Styles */
+    .card {
+      background: rgba(255, 237, 250, 0.8); /* Light pastel with slight transparency */
+      border: 1px solid rgba(225, 149, 171, 0.6);
+      border-radius: 10px;
+      padding: 1.5rem;
+      width: 300px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card h3 {
+      margin-top: 0;
+      color: #DE3163;
+    }
+    .card p {
+      color: #333;
+      line-height: 1.5;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+    /* Fade-in Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .card {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Image -->
+  <div class="bg-container"></div>
+  <!-- Gradient Overlay -->
+  <div class="gradient-overlay"></div>
+  
+  <!-- Canvas for animated raindrops & smoke -->
+  <canvas id="canvas"></canvas>
+
+  <!-- Main Content -->
+  <div class="content">
+    <div class="intro">
+      <h1>Welcome, Umair Aziz</h1>
+      <h2>"Every morning is a fresh canvas. Paint your day with love and passion."</h2>
+    </div>
+    <!-- Cards Section -->
+    <div class="cards-container">
+      <div class="card">
+        <h3>Daily Inspiration</h3>
+        <p>Let these words uplift your spirit each day. Embrace the beauty of every sunrise.</p>
+      </div>
+      <div class="card">
+        <h3>Personalized Message</h3>
+        <p>Your uniqueness shines brighter than any star. Keep pursuing your dreams with passion.</p>
+      </div>
+      <div class="card">
+        <h3>Stay Positive</h3>
+        <p>Even in the rain, there is beauty. Let hope and positivity guide your journey today.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript for Animated Effects -->
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // ----------- RAINDROP EFFECT -----------
+    const raindrops = [];
+    const numRaindrops = 300;
+    for (let i = 0; i < numRaindrops; i++) {
+      raindrops.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        length: 10 + Math.random() * 10,
+        speed: 2 + Math.random() * 4,
+        opacity: 0.2 + Math.random() * 0.3
+      });
+    }
+
+    // ----------- SMOKE EFFECT -----------
+    const smokeParticles = [];
+    const numSmokeParticles = 50;
+    for (let i = 0; i < numSmokeParticles; i++) {
+      smokeParticles.push({
+        x: canvas.width / 2,
+        y: canvas.height - 100,
+        radius: 5 + Math.random() * 10,
+        speedX: (Math.random() - 0.5) * 2,
+        speedY: -1 - Math.random(),
+        opacity: 0.5,
+        growth: 0.1 + Math.random() * 0.1
+      });
+    }
+
+    // ----------- ANIMATION LOOP -----------
+    function animate() {
+      // Clear the canvas (transparent so the bg image and overlay show through)
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw raindrops with a contrasting tone
+      for (let drop of raindrops) {
+        ctx.beginPath();
+        ctx.moveTo(drop.x, drop.y);
+        ctx.lineTo(drop.x, drop.y + drop.length);
+        ctx.strokeStyle = `rgba(80, 0, 40, ${drop.opacity})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        drop.y += drop.speed;
+        if (drop.y > canvas.height) {
+          drop.y = -drop.length;
+          drop.x = Math.random() * canvas.width;
+        }
+      }
+
+      // Draw smoke particles with a soft hue
+      for (let particle of smokeParticles) {
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 230, 240, ${particle.opacity})`;
+        ctx.fill();
+
+        // Update smoke particle properties
+        particle.x += particle.speedX;
+        particle.y += particle.speedY;
+        particle.radius += particle.growth;
+        particle.opacity -= 0.005;
+        if (particle.opacity <= 0) {
+          // Reset the particle to start near the bottom center
+          particle.x = canvas.width / 2;
+          particle.y = canvas.height - 100;
+          particle.radius = 5 + Math.random() * 10;
+          particle.opacity = 0.5;
+          particle.speedX = (Math.random() - 0.5) * 2;
+          particle.speedY = -1 - Math.random();
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Adjust canvas size on window resize
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
