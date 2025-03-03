@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Welcome, Umair Aziz</title>
+  <title>Morning</title>
   <!-- Google Fonts for an elegant look -->
   <!-- <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"> -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
@@ -93,8 +93,8 @@
       margin-bottom: 2rem;
     }
     h1 {
-      /* font-family: 'Playfair Display', serif; */
-      font-family: 'Great Vibes', cursive;
+      font-family: 'Playfair Display', serif;
+      /* font-family: 'Great Vibes', cursive; */
       font-size: 3.5em;
       margin: 0.5em;
       background: linear-gradient(to right, #493D9E, #B2A5FF, #DAD2FF);
@@ -141,6 +141,24 @@
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
       background: rgba(218, 210, 255, 1);
     }
+    .credits {
+      position: fixed;
+      /* top: 3%; */
+      /* right: 0; */
+      left:44%;
+      bottom: 5%;
+      padding: 15px;
+      text-align: center;
+      font-size: 16px;
+      color: #fff;
+      z-index: 999999;
+    }
+    .credits a {
+      /* color: #18d26e; */
+      /* color: #493D9E; */
+      color: rgba(218, 210, 255, 1);
+      transition: 0.3s;
+    }
     /* Fade-in Animation */
     @keyframes fadeIn {
       from { opacity: 0; }
@@ -164,16 +182,16 @@
   <!-- Navbar -->
   <nav class="navbar">
     <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Gallery</a></li>
-      <li><a href="#">Contact</a></li>
+      <!-- <li><a href="#">Home</a></li> -->
+      <!-- <li><a href="#">About</a></li> -->
+      <!-- <li><a href="#">Gallery</a></li> -->
+      <!-- <li><a href="#">Contact</a></li> -->
     </ul>
   </nav>
   <!-- Main Content -->
   <div class="content">
     <div class="intro">
-      <h1>Welcome, Umair Aziz</h1>
+      <h1>Welcome</h1>
       <h2>"Every morning is a fresh canvas. Paint your day with love and passion."</h2>
     </div>
     <!-- Cards Section -->
@@ -190,11 +208,14 @@
         <h3>Stay Positive</h3>
         <p>Even in the rain, there is beauty. Let hope and positivity guide your journey today.</p>
       </div>
+      <div class="credits">
+        Designed by <a href="#">Javeria & Maryam</a><span> 💜</span>
+      </div>
     </div>
   </div>
 
   <!-- JavaScript for Animated Effects -->
-  <script>
+  <!-- <script>
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -283,6 +304,6 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
-  </script>
+  </script> -->
 </body>
 </html>
